@@ -668,4 +668,4 @@ The messages are shown here too. These messages are now available in Azure.
 
 Next Step: You are now ready to process your data in an Azure Function. Continue to [Receiving and handling The Things Network telemetry in Azure](Azure.md)
 
-![alt tag](img/logos/dotned-saturday.png)
+![alt tag](img/logos/innovatos-digitalshockwaves-2017.png)

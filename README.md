@@ -41,4 +41,4 @@ The workshop consists of several chapters. The first two chapters will guide you
    1. [Deploying The Things Network Bridge to Azure as a WebJob](Webjob.md)
    2. [Add basic monitoring to the IoT platform](IoTPatformMonitoring.md)
 
-![alt tag](img/logos/dotned-saturday.png)
+![alt tag](img/logos/innovatos-digitalshockwaves-2017.png)

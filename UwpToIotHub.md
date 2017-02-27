@@ -368,4 +368,4 @@ These messages shown during the monitoring step are now available in Azure, and 
 
 Next Step: You are now ready to process your data in an Azure Function. Continue to [Receivig and handling telemetry in Azure](Azure.md)
 
-![alt tag](img/logos/dotned-saturday.png)
+![alt tag](img/logos/innovatos-digitalshockwaves-2017.png)
