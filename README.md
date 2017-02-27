@@ -28,7 +28,7 @@ During the workshop the following experts will be present to guide you through t
 | Eindhoven March 28, 2017 | 18.00h _[1]_ | TBD |
 | Zaventem May 9, 2017 | 18.00h _[1]_ | TBD |
 
-_[1] The second session will be available when there is enough interest_
+_[1] times are subject to changes_
 
 ## Let's dive into the workshop
 
