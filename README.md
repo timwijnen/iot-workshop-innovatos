@@ -23,10 +23,10 @@ During the workshop the following experts will be present to guide you through t
 
 | Location | Start Time |  Room  |
 | -------- | ---------- | ------ |
-| Amstelveen March 14, 2017 | 18.00_[1]_ | TBD |
-| Groningen March 21, 2017 | 18.00_[1]_ | TBD |
-| Eindhoven March 28, 2017 | 18.00_[1]_ | TBD |
-| Zaventem May 9, 2017 | 18.00_[1]_ | TBD |
+| Amstelveen March 14, 2017 | 18.00h _[1]_ | TBD |
+| Groningen March 21, 2017 | 18.00h _[1]_ | TBD |
+| Eindhoven March 28, 2017 | 18.00h _[1]_ | TBD |
+| Zaventem May 9, 2017 | 18.00h _[1]_ | TBD |
 
 _[1] The second session will be available when there is enough interest_
 
