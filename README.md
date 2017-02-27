@@ -1,5 +1,5 @@
 # The Things Network & Azure IoT: a perfect combination
-## dotNed Saturday 2017 - IoT Workshop
+## Innovatos 2017 - IoT Workshop
 
 This workshop is all about you, getting your hands on some amazing pieces of technology. 
 
@@ -17,15 +17,16 @@ During the workshop the following experts will be present to guide you through t
 
 - Jan Willem Groenenberg; Microsoft Consultant [ ![Twitter](img/social/twitter.png) ](https://twitter.com/jeeweetje)
 - Sander van de Velde; MVP, Microsoft Consultant [ ![Twitter](img/social/twitter.png) ](https://twitter.com/svelde)
-- Valery Jacobs, Technical Evangelist at Microsoft [ ![Twitter](img/social/twitter.png) ](https://twitter.com/valeryjacobs)
+- Hans Boksem, Technical, Internet of Things expert at Atos [ ![Twitter](img/social/twitter.png) ](https://twitter.com/bokse001)
 
-## Workshop schedule at DotNed Saturday 2017
+## Workshop schedule at Innovatos 2017
 
-| Start Time | End Time |  Room  |
-| --------- | ------- | ------ |
-| 01/28/2017 10:15 | 01/28/2017 12:15 *[1]* | Seminar4 |
-
-*[1] The second session will be available when there is enough interest*
+| Location | Start Time | End Time |  Room  |
+| -------- | ---------- | -------- | ------ |
+| Amstelveen | TBD | TBD| TBD |
+| Groningen | TBD | TBD| TBD |
+| Eindhoven | TBD | TBD| TBD |
+| Zaventem | TBD | TBD| TBD |
 
 ## Let's dive into the workshop
 
