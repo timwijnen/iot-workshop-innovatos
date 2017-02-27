@@ -21,12 +21,14 @@ During the workshop the following experts will be present to guide you through t
 
 ## Workshop schedule at Innovatos 2017
 
-| Location | Start Time | End Time |  Room  |
-| -------- | ---------- | -------- | ------ |
-| Amstelveen | TBD | TBD| TBD |
-| Groningen | TBD | TBD| TBD |
-| Eindhoven | TBD | TBD| TBD |
-| Zaventem | TBD | TBD| TBD |
+| Location | Start Time |  Room  |
+| -------- | ---------- | ------ |
+| Amstelveen March 14, 2017 | 18.00_[1]_ | TBD |
+| Groningen March 21, 2017 | 18.00_[1]_ | TBD |
+| Eindhoven March 28, 2017 | 18.00_[1]_ | TBD |
+| Zaventem May 9, 2017 | 18.00_[1]_ | TBD |
+
+_[1] The second session will be available when there is enough interest_
 
 ## Let's dive into the workshop
 
