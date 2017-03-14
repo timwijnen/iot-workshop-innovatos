@@ -222,7 +222,8 @@ Follow the steps to create an application and register your device.
 
     ![alt tag](img/TheThingsNetwork/ttn-applications-add.png)
 
-4. Go to **Devices**
+4. Press **Add application**. The application is added
+5. Go to **Devices**
 
     ![alt tag](img/TheThingsNetwork/ttn-applications-devices.png)
 
