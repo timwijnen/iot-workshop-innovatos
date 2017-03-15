@@ -651,13 +651,13 @@ We can check the arrival of the messages in the Azure IoT Hub using the IoT Hub 
 
     ```
     Monitoring events from all devices...
-    From: MachineCyclesUwp
+    From: predictive_maintenance_machine_42
     {
       "errorCode": 0,
       "numberOfCycles": 8
     }
     -------------------
-    From: MachineCyclesUwp
+    From: predictive_maintenance_machine_42
     {
       "errorCode": 0,
       "numberOfCycles": 9
