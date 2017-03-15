@@ -621,14 +621,13 @@ To run the Device Explorer tool, double-click the DeviceExplorer.exe file in Win
     ![alt tag](img/UwpToIotHub/ihe-devices.png)
 
 5. On the Data tab, Select your `Device ID` (like 'MachineCyclesUwp') and press `Monitor`
-6. in the UWP app, press `Send cycle updates` a couple of times
-7. This will result in the following messages when you send some Duty Cycle telemetry in your UWP app
+6. Now we check the leds on the device for `Sending cycle updates` a couple of times. This will result in the following messages while Duty Cycle telemetry is sent by the device
 
     ```
     Receiving events...
-    1/5/2017 9:46:18 PM> Device: [MachineCyclesUwp], Data:[{"errorCode":0,"numberOfCycles":1}]
-    1/5/2017 9:46:19 PM> Device: [MachineCyclesUwp], Data:[{"errorCode":0,"numberOfCycles":2}]
-    1/5/2017 9:46:20 PM> Device: [MachineCyclesUwp], Data:[{"errorCode":0,"numberOfCycles":3}]
+    1/5/2017 9:46:18 PM> Device: [predictive_maintenance_machine_42], Data:[{"errorCode":0,"numberOfCycles":1}]
+    1/5/2017 9:46:19 PM> Device: [predictive_maintenance_machine_42], Data:[{"errorCode":0,"numberOfCycles":2}]
+    1/5/2017 9:46:20 PM> Device: [predictive_maintenance_machine_42], Data:[{"errorCode":0,"numberOfCycles":3}]
     ```
 
 ### Monitoring using Command-line
