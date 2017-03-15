@@ -618,7 +618,7 @@ To run the Device Explorer tool, double-click the DeviceExplorer.exe file in Win
 3. Press `Update`
 4. On the Management tab, your device should already be available. It was registered by the bridge the very first time, telemetry arrived
 
-    ![alt tag](img/UwpToIotHub/ihe-devices.png)
+    ![alt tag](img/TheThingsNetwork/ihe-devices.png)
 
 5. On the Data tab, Select your `Device ID` (like 'predictive_maintenance_machine_42') and press `Monitor`
 6. Now we check the leds on the device for `Sending cycle updates` a couple of times. This will result in the following messages while Duty Cycle telemetry is sent by the device
