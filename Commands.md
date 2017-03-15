@@ -11,7 +11,7 @@ This part of the workshop supports both to the [TTN Node](TheThingsNetwork.md) a
 
 ### Prerequisites
 
-1. Azure account [create here](https://azure.microsoft.com/en-us/free/) _(Azure passes will be present for those who have no Azure account)_
+1. Azure account [create here](https://azure.microsoft.com/en-us/free/) _(Azure passes will be present for those who have no Azure account (please check your email for final confirmation))_
 2. A running TTN node connected to the TTN network and a running TTN bridge on your PC and connected to an IoT Hub
 3. or... a UWP app which simulates a machine running duty cycles
 4. A combination of Azure IoT Hub, Stream Analytics job, Event Hub and Azure Function which are waiting for analyzed telemetry coming from the devices
