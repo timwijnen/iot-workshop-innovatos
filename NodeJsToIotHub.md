@@ -11,57 +11,54 @@ This is an example integration between a NodeJs app and Azure IoT Hub. This inte
 ### Prerequisites
 
 1. A Windows 7+ computer with internet access
-2. Visual Studio 2015 [Community edition](https://www.visualstudio.com/vs/community/) or higher
-3. Universal Windows App Development Tools [Windows SDK](https://developer.microsoft.com/en-US/windows/downloads/windows-10-sdk)
-4. Visual Studio Extension [Connected Service for Azure IoT Hub](https://visualstudiogallery.msdn.microsoft.com/e254a3a5-d72e-488e-9bd3-8fee8e0cd1d6)
-5. Node.js [https://nodejs.org/en/](https://nodejs.org/en/). _(We prefer Version 6)_
-6. Azure account [create here](https://azure.microsoft.com/en-us/free/) _([Azure passes](https://www.microsoftazurepass.com/howto) will be present for those who have no Azure account (please check your email for final confirmation))_
-7. [IoT Hub Explorer](https://www.npmjs.com/package/iothub-explorer) _(for Command-Line interface based usage; see below for installation steps)_ or [Device Explorer](https://github.com/fsautomata/azure-iot-sdks/blob/master/tools/DeviceExplorer/doc/how_to_use_device_explorer.md) _(for GUI based usage; see below for installation steps)_  
+2. Node.js [https://nodejs.org/en/](https://nodejs.org/en/). _(We prefer Version 6)_
+3. Azure account [create here](https://azure.microsoft.com/en-us/free/) _([Azure passes](https://www.microsoftazurepass.com/howto) will be present for those who have no Azure account (please check your email for final confirmation))_
+4. [IoT Hub Explorer](https://www.npmjs.com/package/iothub-explorer) _(for Command-Line interface based usage; see below for installation steps)_ or [Device Explorer](https://github.com/fsautomata/azure-iot-sdks/blob/master/tools/DeviceExplorer/doc/how_to_use_device_explorer.md) _(for GUI based usage; see below for installation steps)_  
 
 ### Objectives
 
 In this workshop, you will learn:
 
 1. Creating an IoT Hub in the Azure Portal
-2. Creating a new UWP App
+2. Creating a new NodeJs app
 3. Connect to the IoT Hub and register the app like a device
 4. Generate and send dummy telemetry
 5. Check the arrival of the telemetry
 
 ## Creating an Azure IoT Hub in the Azure portal
 
-![alt tag](img/arch/Picture01-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture01-UWP-overview.png)
 
 Follow these steps to create an Azure IoT Hub.
 
 1. Log into the [Azure portal](https://portal.azure.com/). You will be asked to provide Azure credentials if needed
 2. On the left, a number of common Azure services are shown. Select `More Services` to open a list with all available services
 
-    ![alt tag](img/UwpToIotHub/azure-more-services.png)
+    ![alt tag](img/NodeJsToIotHub/azure-more-services.png)
 
 3. Filter it with `IoT Hub`
 
-    ![alt tag](img/UwpToIotHub/azure-search-iot-hub.png)
+    ![alt tag](img/NodeJsToIotHub/azure-search-iot-hub.png)
 
 4. Select `IoT Hub` and a new blade will be shown. Select `Add` and you will be asked to enter the information needed to create an IoT Hub
 
-    ![alt tag](img/UwpToIotHub/azure-portal-add.png)
+    ![alt tag](img/NodeJsToIotHub/azure-portal-add.png)
 
 5. Enter a unique IoT Hub name eg. `IoTWorkshop-ih`. A green sign will be shown if the name is unique
 6. Enter a unique Resource Group eg. `IoTWorkshop-rg`. A green sign will be shown if the name is unique
 7. Select `West Europe` for the location, if needed
 
-    ![alt tag](img/UwpToIotHub/azure-new-iot-hub-scaled.png)
+    ![alt tag](img/NodeJsToIotHub/azure-new-iot-hub-scaled.png)
 
 8. Press `Create` and the portal will start creating the service. Once it is created, a notification is shown. In the right upper corner, a bell represents the list of all notifications shown
 
-    ![alt tag](img/UwpToIotHub/azure-notifications-iothub.png)
+    ![alt tag](img/NodeJsToIotHub/azure-notifications-iothub.png)
 
 Creating an IoT Hub takes some time. Meanwhile, we will start with the app which will connect to the IoT Hub later on.
 
-## Creating a new UWP App
+## Creating a new NodeJs App
 
-![alt tag](img/arch/Picture02-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture02-NodeJs-overview.png)
 
 We will create a UWP app in Visual Studio. These apps are called Universal Windows Apps because they are supported by all sorts of devices running Windows 10. This includes laptops, PC's, Mobile devices like phones and tablets, the Xbox One, The Surface Hub, The Hololens and even the Raspberry Pi.
 
