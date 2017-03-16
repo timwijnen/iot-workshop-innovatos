@@ -1,8 +1,8 @@
 ## Connecting to an IoT Hub using a UWP app device simulation
 
-![alt tag](img/arch/Picture00-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture00-NodeJs-overview.png)
 
-This is an example integration between a UWP app and Azure IoT Hub. This integration shows features like creating devices in the Azure IoT Hub device registry as well as sending telemetry to the IoT Hub.
+This is an example integration between a NodeJs app and Azure IoT Hub. This integration shows features like creating devices in the Azure IoT Hub device registry as well as sending telemetry to the IoT Hub.
 
 *Note: In this workshop, we will create uniquely named Azure resources. The suggested names could be reserved already. Just try another unique name.*
 
@@ -10,7 +10,7 @@ This is an example integration between a UWP app and Azure IoT Hub. This integra
 
 ### Prerequisites
 
-1. A Windows 10 computer with internet access
+1. A Windows 7+ computer with internet access
 2. Visual Studio 2015 [Community edition](https://www.visualstudio.com/vs/community/) or higher
 3. Universal Windows App Development Tools [Windows SDK](https://developer.microsoft.com/en-US/windows/downloads/windows-10-sdk)
 4. Visual Studio Extension [Connected Service for Azure IoT Hub](https://visualstudiogallery.msdn.microsoft.com/e254a3a5-d72e-488e-9bd3-8fee8e0cd1d6)
