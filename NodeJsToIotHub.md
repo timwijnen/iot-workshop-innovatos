@@ -71,9 +71,8 @@ To register a client device, you must run a script that uses a connection with s
 2. In the blade for your IoT Hub, click Shared access policies.
 3. In the Shared access policies blade, click the iothubowner policy, and then copy the connection string-primary key for your IoT Hub to the clipboard – you will need this later.
 
-```javascript
-Note: For more information about access control for IoT hubs, see [Access control](https://azure.microsoft.com/en-us/documentation/articles/iot-hub-devguide-security/) in the "Azure IoT Hub developer guide."
-```
+*Note: For more information about access control for IoT hubs, see [Access control](https://azure.microsoft.com/en-us/documentation/articles/iot-hub-devguide-security/) in the "Azure IoT Hub developer guide."*
+
 
 ### Create a Device Identity
 
@@ -125,131 +124,102 @@ node createdeviceid.js
 
 ![alt tag](img/NodeJsToIotHub/Picture03-NodeJs-overview.png)
 
+Now that you have registered a client device, you can create an application that the device can use to submit data to the IoT Hub.
+
+### Create a Client Device Application
+Now that you have registered a device, it can submit data to the IoT hub.
+
+1. In the Node.JS console, navigate to the iotdevice folder in the folder where you extracted the lab files.
+2. Enter the following command, and press RETURN to accept all the default options. This creates a package.json file for your application:
+```javascript
+npm init
+```
+3. Enter the following command to install the Azure IoT device and AMQP protocol packages:
+```javascript
+npm install azure-iot-device azure-iot-device-amqp
+```
+4. Use a text editor to edit the iotdevice.js file in the iotdevice folder.
+5. Modify the script to set the connStr variable to reflect the device connection string for the MachineCyclesNodeJs device (which you copied to the clipboard in the previous exercise), as shown here:
+```javascript
+
+'use strict';
+
+var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
+var Message = require('azure-iot-device').Message;
+var connStr = '<DEVICE_CONNECTION_STRING>';
+var client = clientFromConnectionString(connStr);
+
+function printResultFor(op) {
+  return function printResult(err, res) {
+    if (err) console.log(op + ' error: ' + err.toString());
+    if (res) console.log(op + ' status: ' + res.constructor.name);
+  };
+}
+
+var i = 1;
+var e = 0;
+var repaired = false;
+
+var connectCallback = function (err) {
+  if (err) {
+    console.log('Could not connect to IoT Hub: ' + err);
+  } else {
+    console.log('Client connected to IoT Hub');
+
+                
+    client.on('message', function (msg) {
+      client.complete(msg, printResultFor('completed'));
+
+      if ( msg.data[0] >= 42) {
+        console.log("\x1b[33m",'Repair command received. Machine started running again');
+        console.log("\x1b[0m", '------------------------------------------------------');      
+        e = 0;
+        repaired = true;
+      }
+    });
+
+    // Create a message and send it to the IoT Hub every second
+    setInterval(function(){
+      if (i % 5 == 0 && !repaired ) {
+        e = 99; 
+      }
+      repaired = false;
+
+      var data = JSON.stringify({ errorCode: e, numberOfCycles: i });
+      var message = new Message(data);
+      console.log("Telemetry sent: " + message.getData());
+      client.sendEvent(message, printResultFor('send'));
+
+      if (e == 0) {
+        i++;
+      } 
+    }, 10000);
+  }
+};
+
+console.log("\x1b[31m",'MACHINE CYCLE DEMO');
+console.log("\x1b[0m", '==================');
+
+client.open(connectCallback);
+```
+6. Save the script and close the file.
+
+
 
 ## Generate and send dummy telemetry
 
 ![alt tag](img/NodeJsToIotHub/Picture04-NodeJs-overview.png)
 
-We will use the connection later on. But first let's check out the 'AzureIoTHub.cs' file because it needs some rework.
+Now you can run your client application to send data to the IoT hub.
 
-1. `Open` the file named 'AzureIoTHub.cs'
-2. The file contains a class named which has two methods: 'SendDeviceToCloudMessageAsync' and 'ReceiveCloudToDeviceMessageAsync'. *Note: receiving Cloud to Device messages will be discussed later on*
-3. The method to send data is not that intelligent. It only sends a text message. `Add the following code` just below it
+1. In the Node.JS console window, enter the following command to run the script:
+node iotdevice.js
+2. Observe the script running as it starts to submit device readings.
 
-    ```csharp
-    public static async Task SendDeviceToCloudMessageAsync(Telemetry telemetry)
-    {
-     var deviceClient = DeviceClient.CreateFromConnectionString(deviceConnectionString, TransportType.Amqp);
+    ![alt tag](img/NodeJsToIotHub/nodejs-send-telemetry.png)
 
-        var message = new Message(Encoding.ASCII.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(telemetry)));
+Now we have sent telemetry to the IoT Hub. Let's check if it's arrived.
 
-        await deviceClient.SendEventAsync(message);
-    }
-
-    public class Telemetry
-    {
-        public int errorCode { get; set; }
-
-        public int numberOfCycles { get; set; }
-    }
-    ```
-
-4. We have defined the Telemetry class which will hold the number of cycles. And the current error code of the device can be passed to the cloud. The telemetry is converted to JSON
-6. `Open` the 'XAML' file named 'MainPage.xaml'. The empty page will be shown both in a visual editor and a textual XAML editor
-7. The page contains one component, a grid. But that grid is merely a container for other visual components
-8. In the XAML editor, within the grid, `add`
-
-    ```xml
-    <StackPanel>
-        <TextBlock Name="txbTitle" Text="Machine Cycles Demo" Margin="5"  FontSize="100" IsColorFontEnabled="True" Foreground="DarkOliveGreen" />
-        <Button Name="BtnSend" Content="Send cycle updates" Margin="5" FontSize="60" Click="btnSend_Click" />
-        <Button Name="BtnBreak" Content="Break down" Margin="5" FontSize="60" Click="BtnBreak_OnClick" />
-        <TextBlock Name="TbMessage" Text="---" FontSize="60" />
-    </StackPanel>
-    ```
-
-9. Three buttons and two text blocks are put on the screen. Go to the code-behind source code which will be executed when the buttons are clicked. 
-10. Press `F7`, the file 'MainPage.xaml.cs' is shown. 
-11. Only the constructor of this page is shown. `Add` the following members and methods 
-
-    ```csharp
-    private int _cycleCounter;
-
-    private int _errorCode;
-
-    private async void btnSend_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            await ShowMessage("Sending...");
-
-            if (_errorCode == 0)
-            {
-                _cycleCounter++;
-            }
-
-            var t = new AzureIoTHub.Telemetry
-            {
-                errorCode = _errorCode,
-                numberOfCycles = _cycleCounter,
-            };
-
-            await AzureIoTHub.SendDeviceToCloudMessageAsync(t);
-
-            await ShowMessage($"Telemetry sent (Cycle: {_cycleCounter}, State: {_errorCode})");
-        }
-        catch (Exception ex)
-        {
-            await ShowMessage(ex.Message);
-        }
-    }
-
-    private async Task ShowMessage(string text)
-    {
-        await Dispatcher.RunAsync(
-                CoreDispatcherPriority.Normal, () =>
-                {
-                    TbMessage.Text = text;
-                });
-    }
-
-    private async void BtnBreak_OnClick(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            BtnBreak.IsEnabled = false;
-
-            _errorCode = 99;
-
-            txbTitle.Foreground = new SolidColorBrush(Colors.Red);
-
-            await ShowMessage("Machine is now broken, cycles have stopped; have to Notify!");
-        }
-        catch (Exception ex)
-        {
-            await ShowMessage(ex.Message);
-        }
-    }
-    ```
-
-12. The method 'btnSend_Click' now increases the number of duty cycles and sends it to the IoT Hub using the unique access token of the device 'MachineCyclesUwp'
-13. New libraries references are introduced in this code. `Add` two times a 'using' at the top of the editor
-
-    ```csharp
-    using System;
-    using System.Threading.Tasks;
-    using Windows.UI;
-    using Windows.UI.Core;
-    using Windows.UI.Xaml;
-    using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Media;
-    ```
-
-14. The app is now ready. `Run` the app and first send some cycle updates. It the message 'Telemetry sent' is shown, our telemetry is accepted by the IoT Hub
-
-    ![alt tag](img/NodeJsToIotHub/uwp-send-telemetry.png)
-
-Now we have sent telemetry to the Event Hub. Let's check if it's arrived.
 
 ## Monitoring the arrival of the telemetry in Azure
 
