@@ -1,4 +1,4 @@
-## Connecting to an IoT Hub using a UWP app device simulation
+## Connecting to an IoT Hub using a NodeJs app device simulation
 
 ![alt tag](img/NodeJsToIotHub/Picture00-NodeJs-overview.png)
 
@@ -27,7 +27,7 @@ In this workshop, you will learn:
 
 ## Creating an Azure IoT Hub in the Azure portal
 
-![alt tag](img/NodeJsToIotHub/Picture01-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture01-NodeJs-overview.png)
 
 Follow these steps to create an Azure IoT Hub.
 
@@ -56,86 +56,79 @@ Follow these steps to create an Azure IoT Hub.
 
 Creating an IoT Hub takes some time. Meanwhile, we will start with the app which will connect to the IoT Hub later on.
 
-## Creating a new NodeJs App
-
-![alt tag](img/NodeJsToIotHub/Picture02-NodeJs-overview.png)
-
-We will create a UWP app in Visual Studio. These apps are called Universal Windows Apps because they are supported by all sorts of devices running Windows 10. This includes laptops, PC's, Mobile devices like phones and tablets, the Xbox One, The Surface Hub, The Hololens and even the Raspberry Pi.
-
-*Note: Our app will simulate a machine which handles batches of work. It passes the increasing number of finished duty cycles every X seconds to the cloud. And we can simulate outage later on*
-
-1. Start Visual Studio
-2. On the Start Page or using the Menu, select New Project...
-
-    ![alt tag](img/UwpToIotHub/vs-new-project.png)
-
-3. In the dialog, select the `Blank App (Universal Windows)` template
-
-    ![alt tag](img/UwpToIotHub/vs-universal-app-template.png)
-
-4. Select `Ok`. If you are asked which minimal platform version must be loaded, just press `Ok` again
-
-    ![alt tag](img/UwpToIotHub/vs-universal-anniversary.png)
-
-    *Note: If you do not have the Windows 10 Aniversary edition installed, please select the previous SDK*
- 
-5. Press `F6` or use the menu `BUILD|Build Solution` to recompile the app and check if the build completes without errors
-
-    ![alt tag](img/UwpToIotHub/vs-build-succeeded.png)
-
-6. Start the app by pressing `F5` or use the menu `DEBUG|Start Debugging`
-7. The app starts and an empty form is shown
-
-The app is created. You are now ready to add a connection to the IoT Hub.
 
 ## Connect to the IoT Hub and register the app like a device
 
-![alt tag](img/arch/Picture03-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture02-NodeJs-overview.png)
 
-Let's add a connection to IoT hub and register the app like a real device.
+Unlike event hubs, all devices that use an IoT hub must be individually registered, and use their own endpoint and shared access key to access the hub. In this exercise, you will register a client device.
 
-1. Stop the running app using, if the app is on top, `ALT-F4` or the menu `DEBUG|Stop debugging`
-2. Go to the solution Explorer to the right. You can see the application has one page called MainPage.xaml
+### Get the Hostname and Connection String for the Hub
 
-    ![alt tag](img/UwpToIotHub/vs-solution-explorer-universal-start.png)
+To register a client device, you must run a script that uses a connection with sufficient permissions to access the hub registry. In this case, you will use the built-in iothubowner shared access policy to accomplish this.
 
-3. In the solution, right-click `References` and select `Add Connected Service`
+1. In the Azure portal, browse to the IoT Hub you created previously.
+2. In the blade for your IoT Hub, click Shared access policies.
+3. In the Shared access policies blade, click the iothubowner policy, and then copy the connection string-primary key for your IoT Hub to the clipboard – you will need this later.
 
-    ![alt tag](img/UwpToIotHub/vs-iot-hub-extension.png)
+```javascript
+Note: For more information about access control for IoT hubs, see [Access control](https://azure.microsoft.com/en-us/documentation/articles/iot-hub-devguide-security/) in the "Azure IoT Hub developer guide."
+```
 
-4. A welcome screen for the extension will be shown. Select `Azure IoT Hub` and click `Configure` to add it as a Connected Service
+### Create a Device Identity
 
-    ![alt tag](img/UwpToIotHub/vs-iot-extension-start.png)
+Each device that sends data to the IoT hub must be registered with a unique identity.
 
-5. Select `Hardcode shared access key` as Security Mode. Confirm with `OK`
-6. Now you will be asked to select the IoT Hub you want to connect. At this time, the Hub should be created. *If you have multiple Azure accounts, please double-check that the correct one is selected*
+1. Open a Node.JS console and navigate to the createdeviceid folder in the folder where you extracted the lab files.
+2. Enter the following command, and press RETURN to accept all the default options. This creates a package.json file for your application:
+```javascript
+npm init
+```
+3. Enter the following command to install the Azure IoT Hub package:
+```javascript
+npm install azure-iothub
+```
+4. Use a text editor to edit the createdeviceid.js file in the createdeviceid folder.
+5. Modify the script to set the connStr variable to reflect the shared access policy connection string for your IoT Hub, as shown here:
+```javascript
+'use strict';
+var iothub = require('azure-iothub');
+var connStr = '<IOT-HUB-CONNECTION-STRING>';
+var registry = iothub.Registry.fromConnectionString(connStr);
+var device = new iothub.Device(null);
+device.deviceId = 'MachineCyclesNodeJs';
 
-    ![alt tag](img/UwpToIotHub/vs-iot-extension-select.png)
+registry.create(device, function(err, deviceInfo, res) {
+  if (err) {
+    registry.get(device.deviceId, printDeviceInfo);
+  }
+  if (deviceInfo) {
+    printDeviceInfo(err, deviceInfo, res)
+  }
+});
 
-7. Select your IoT Hub and press `Add`
-8. The next page of the wizard is shown. A little screen pops up asking to select or add a device. Our app will represent a device and therefore access must be granted. Select `New Device`
+function printDeviceInfo(err, deviceInfo, res) {
+  if (deviceInfo) {
+    console.log('Device id: ' + deviceInfo.deviceId);
+  }
+}
+```
+6. Save the script and close the file.
+7. In the Node.JS console window, enter the following command to run the script:
+node createdeviceid.js
+8. Verify that the script registers a device with the ID MachineCyclesNodeJs.
+9. In the Azure portal, on the blade for your IoT Hub, click the Overview tab and then at the top of the blade, click Devices and verify that MachineCyclesNodeJs is listed.
+10. Click MachineCyclesNodeJs and view the device-specific keys and connection strings that have been generated. Then copy the connection string-primary key for MachineCyclesNodeJs to the clipboard. You will use this in the next exercise.
 
-    ![alt tag](img/UwpToIotHub/vs-device-one.png)
 
-9. Enter a unique `device name` eg 'MachineCyclesUwp'
+## Creating a new NodeJs App
 
-    ![alt tag](img/UwpToIotHub/vs-device-two.png)
+![alt tag](img/NodeJsToIotHub/Picture03-NodeJs-overview.png)
 
-10. The device is registered, you are allowed to create more devices. Unique credentials are created for each device in the background
-11. But afterward, be sure to pick the 'MachineCyclesUwp'; this one will be used by our app. Select `OK` to start the generation of the connection
-
-    ![alt tag](img/UwpToIotHub/vs-device-three.png)
-
-12. The necessary NuGet libraries are added and eventually you will be directed to a [Get Started page](https://github.com/Azure/azure-iot-hub-vs-cs/wiki/C%23-Usage) for more information
-13. In the Solution Explorer of Visual Studio, a new file named 'AzureIoTHub.cs' is added. This provides all logic for the connection to the IoT Hub
-
-    ![alt tag](img/UwpToIotHub/vs-iot-hub-singleton.png)
-
-The AzureIoTHub can be integrated into the logic of our App. Let's do that.
 
 ## Generate and send dummy telemetry
 
-![alt tag](img/arch/Picture04-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture04-NodeJs-overview.png)
 
 We will use the connection later on. But first let's check out the 'AzureIoTHub.cs' file because it needs some rework.
 
@@ -254,7 +247,7 @@ We will use the connection later on. But first let's check out the 'AzureIoTHub.
 
 14. The app is now ready. `Run` the app and first send some cycle updates. It the message 'Telemetry sent' is shown, our telemetry is accepted by the IoT Hub
 
-    ![alt tag](img/UwpToIotHub/uwp-send-telemetry.png)
+    ![alt tag](img/NodeJsToIotHub/uwp-send-telemetry.png)
 
 Now we have sent telemetry to the Event Hub. Let's check if it's arrived.
 
@@ -268,31 +261,31 @@ The integration requires an Azure IoT Hub Shared access policy key name with `Re
 
 1. Check the Azure portal. The resource group and the IoT Hub should be created by now (otherwise, we were unable to send duty cycles information to it)
 
-    ![alt tag](img/UwpToIotHub/azure-notifications-iothub.png)
+    ![alt tag](img/NodeJsToIotHub/azure-notifications-iothub.png)
 
 2. On the left, select `Resource groups`. A list of resource groups is shown
 
-    ![alt tag](img/UwpToIotHub/azure-resource-groups.png)
+    ![alt tag](img/NodeJsToIotHub/azure-resource-groups.png)
 
 3. Select the resource group `IoTWorkshop-rg`. It will open a new blade with all resources in this group
 4. Select the IoT Hub `IoTWorkshop-ih`. It will open a new blade with the IoT Hub
 
-    ![alt tag](img/UwpToIotHub/azure-iot-hub-initial.png)
+    ![alt tag](img/NodeJsToIotHub/azure-iot-hub-initial.png)
 
 5. The IoTHub has not received any messages yet. Check the general settings for `Shared access policies`
 
-    ![alt tag](img/UwpToIotHub/azure-iot-hub-share-access-policy.png)
+    ![alt tag](img/NodeJsToIotHub/azure-iot-hub-share-access-policy.png)
 
 6. **Write down** the `name` of the IoT Hub eg. `IoTWorkshop-ih`
 7. Navigate to the 'iothubowner' policy and **write down** this `Connection String-Primary Key`
 
-    ![alt tag](img/UwpToIotHub/azure-iothubowner-policy.png)
+    ![alt tag](img/NodeJsToIotHub/azure-iothubowner-policy.png)
 
 This is the secret needed from the Azure IoT Hub.
 
 ## Select your favorite tool for monitoring
 
-![alt tag](img/arch/Picture05-UWP-overview.png)
+![alt tag](img/NodeJsToIotHub/Picture05-NodeJs-overview.png)
 
 We can check the arrival of messages in the Azure IoT Hub. This can be done using a UI app named Device Explorer or using a Command-Line tool named IoT Hub Explorer. `Choose one below` 
 
@@ -311,7 +304,7 @@ To run the Device Explorer tool, double-click the DeviceExplorer.exe file in Win
 3. Press `Update`
 4. On the Management tab, your device should already be available. It was registered by the bridge the very first time, telemetry arrived
 
-    ![alt tag](img/UwpToIotHub/ihe-devices.png)
+    ![alt tag](img/NodeJsToIotHub/ihe-devices.png)
 
 5. On the Data tab, Select your `Device ID` (like 'MachineCyclesUwp') and press `Monitor`
 6. in the UWP app, press `Send cycle updates` a couple of times
