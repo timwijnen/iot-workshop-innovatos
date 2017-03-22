@@ -78,17 +78,19 @@ To register a client device, you must run a script that uses a connection with s
 
 Each device that sends data to the IoT hub must be registered with a unique identity.
 
-1. Open a Node.JS console and navigate to the createdeviceid folder in the folder where you extracted the lab files.
-2. Enter the following command, and press RETURN to accept all the default options. This creates a package.json file for your application:
+1. Create a createdeviceid folder.
+2. Open a Node.JS console and navigate to the createdeviceid folder.
+3. Enter the following command, and press RETURN to accept all the default options. This creates a package.json file for your application:
 ```javascript
 npm init
 ```
-3. Enter the following command to install the Azure IoT Hub package:
+4. Enter the following command to install the Azure IoT Hub package:
 ```javascript
 npm install azure-iothub
 ```
-4. Use a text editor to edit the createdeviceid.js file in the createdeviceid folder.
-5. Modify the script to set the connStr variable to reflect the shared access policy connection string for your IoT Hub, as shown here:
+5. Create a createdeviceid.js file in the createdeviceid folder.
+6. Use a text editor to edit the createdeviceid.js file.
+7. Modify the script to set the connStr variable to reflect the shared access policy connection string for your IoT Hub, as shown here:
 ```javascript
 'use strict';
 var iothub = require('azure-iothub');
@@ -112,12 +114,14 @@ function printDeviceInfo(err, deviceInfo, res) {
   }
 }
 ```
-6. Save the script and close the file.
-7. In the Node.JS console window, enter the following command to run the script:
+8. Save the script and close the file.
+9. In the Node.JS console window, enter the following command to run the script:
+```javascript
 node createdeviceid.js
-8. Verify that the script registers a device with the ID MachineCyclesNodeJs.
-9. In the Azure portal, on the blade for your IoT Hub, click the Overview tab and then at the top of the blade, click Devices and verify that MachineCyclesNodeJs is listed.
-10. Click MachineCyclesNodeJs and view the device-specific keys and connection strings that have been generated. Then copy the connection string-primary key for MachineCyclesNodeJs to the clipboard. You will use this in the next exercise.
+```
+10. Verify that the script registers a device with the ID MachineCyclesNodeJs.
+11. In the Azure portal, on the blade for your IoT Hub, click the Overview tab and then at the top of the blade, click Devices and verify that MachineCyclesNodeJs is listed.
+11. Click MachineCyclesNodeJs and view the device-specific keys and connection strings that have been generated. Then copy the connection string-primary key for MachineCyclesNodeJs to the clipboard. You will use this in the next exercise.
 
 
 ## Creating a new NodeJs App
@@ -129,7 +133,8 @@ Now that you have registered a client device, you can create an application that
 ### Create a Client Device Application
 Now that you have registered a device, it can submit data to the IoT hub.
 
-1. In the Node.JS console, navigate to the iotdevice folder in the folder where you extracted the lab files.
+1. Create an iotdevice folder.
+1. In the Node.JS console, navigate to the iotdevice folder.
 2. Enter the following command, and press RETURN to accept all the default options. This creates a package.json file for your application:
 ```javascript
 npm init
@@ -138,10 +143,10 @@ npm init
 ```javascript
 npm install azure-iot-device azure-iot-device-amqp
 ```
-4. Use a text editor to edit the iotdevice.js file in the iotdevice folder.
+4. Create an iotdevice.js file in the iotdevice folder.
+4. Use a text editor to edit the iotdevice.js file.
 5. Modify the script to set the connStr variable to reflect the device connection string for the MachineCyclesNodeJs device (which you copied to the clipboard in the previous exercise), as shown here:
 ```javascript
-
 'use strict';
 
 var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
