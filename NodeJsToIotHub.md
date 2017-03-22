@@ -253,39 +253,12 @@ The integration requires an Azure IoT Hub Shared access policy key name with `Re
 
 This is the secret needed from the Azure IoT Hub.
 
-## Select your favorite tool for monitoring
+## Monitoring tool
 
 ![alt tag](img/NodeJsToIotHub/Picture05-NodeJs-overview.png)
 
-We can check the arrival of messages in the Azure IoT Hub. This can be done using a UI app named Device Explorer or using a Command-Line tool named IoT Hub Explorer. `Choose one below` 
+We can check the arrival of messages in the Azure IoT Hub. This can be done using a npm package named IoT Hub Explorer.
 
-### Monitoring using UI
-
-We can check the arrival of the messages in the Azure IoT Hub using the Device Explorer.
-
-The Device Explorer tool is a Windows-only graphical tool for managing your devices in IoT Hub.
-
-The easiest way to install the Device Explorer tool in your environment is to download the pre-built version by clicking [Azure IoT SDKs releases](https://github.com/Azure/azure-iot-sdks/releases). Scroll down to the Downloads section to locate the download link for the SetupDeviceExplorer.msi installer. Download and run the installer.
-
-To run the Device Explorer tool, double-click the DeviceExplorer.exe file in Windows Explorer. The default installation folder for this application is C:\Program Files (x86)\Microsoft\DeviceExplorer.
-
-1. Start the `Device Explorer` from the desktop or using the start menu
-2. On the Configuration Tab, insert the IoT Hub `Connection String-primary key` and the `name` of the IoT Hub (as Protocol Gateway Hostname)
-3. Press `Update`
-4. On the Management tab, your device should already be available. It was registered by the bridge the very first time, telemetry arrived
-
-    ![alt tag](img/NodeJsToIotHub/ihe-devices.png)
-
-5. On the Data tab, Select your `Device ID` (like 'MachineCyclesUwp') and press `Monitor`
-6. in the UWP app, press `Send cycle updates` a couple of times
-7. This will result in the following messages when you send some Duty Cycle telemetry in your UWP app
-
-    ```
-    Receiving events...
-    1/5/2017 9:46:18 PM> Device: [MachineCyclesUwp], Data:[{"errorCode":0,"numberOfCycles":1}]
-    1/5/2017 9:46:19 PM> Device: [MachineCyclesUwp], Data:[{"errorCode":0,"numberOfCycles":2}]
-    1/5/2017 9:46:20 PM> Device: [MachineCyclesUwp], Data:[{"errorCode":0,"numberOfCycles":3}]
-    ```
 
 ### Monitoring using Command-line
 
