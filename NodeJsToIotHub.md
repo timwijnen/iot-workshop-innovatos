@@ -230,6 +230,8 @@ Now we have sent telemetry to the IoT Hub. Let's check if it's arrived.
 
 ## Monitoring the arrival of the telemetry in Azure
 
+![alt tag](img/NodeJsToIotHub/Picture05-NodeJs-overview.png)
+
 We can monitor the arrival of telemetry only if we have enough rights to look into the IoT Hub. So first we collect secrets.
 
 ### Collect Azure IoT Hub secrets
@@ -261,8 +263,6 @@ The integration requires an Azure IoT Hub Shared access policy key name with `Re
 This is the secret needed from the Azure IoT Hub.
 
 ### IoT Hub Explorer
-
-![alt tag](img/NodeJsToIotHub/Picture05-NodeJs-overview.png)
 
 We can check the arrival of messages in the Azure IoT Hub. This can be done using a Command-Line tool named IoT Hub Explorer (node package).
 
