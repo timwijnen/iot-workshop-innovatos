@@ -253,14 +253,14 @@ The integration requires an Azure IoT Hub Shared access policy key name with `Re
 
 This is the secret needed from the Azure IoT Hub.
 
-## Monitoring tool
+### IoT Hub Explorer
 
 ![alt tag](img/NodeJsToIotHub/Picture05-NodeJs-overview.png)
 
-We can check the arrival of messages in the Azure IoT Hub. This can be done using a npm package named IoT Hub Explorer.
+We can check the arrival of messages in the Azure IoT Hub. This can be done using a Command-Line tool named IoT Hub Explorer (node package).
 
 
-### Monitoring using Command-line
+### Install & run
 
 We can check the arrival of the messages in the Azure IoT Hub using the IoT Hub Explorer. This tool is Command-Line based, please check the installation requirements. 
 
