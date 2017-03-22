@@ -218,7 +218,9 @@ client.open(connectCallback);
 Now you can run your client application to send data to the IoT hub.
 
 1. In the Node.JS console window, enter the following command to run the script:
+```javascript
 node iotdevice.js
+```
 2. Observe the script running as it starts to submit device readings.
 
     ![alt tag](img/NodeJsToIotHub/nodejs-send-telemetry.png)
